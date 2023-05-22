@@ -1,0 +1,110 @@
+﻿
+.preview-box{
+    height: 150px;
+    margin-bottom: 25px;
+}
+
+.preview-link{
+    text-decoration: none;
+    color: white;
+}
+
+.preview-box a:visited{
+    color: white;
+}
+
+.preview-box a{
+    color: white;
+}
+
+.title-preview{
+    padding: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.content-preview{
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;   
+    color: gray;
+
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    white-space: normal;
+}
+
+
+
+.preview-box:hover{
+    background-color: #6e6e6e;
+}
+
+#caro img{
+    height: 500px;
+    object-fit: cover;
+}
+
+.container0padding{
+    padding: 0;
+}
+
+/*     background-color: #292b2c;
+*/
+
+.carousel-control-next,.carousel-control-prev ,.carousel-indicators {
+    filter: invert(100%);
+}
+
+.profile-edit img{
+    padding: 15px;
+}
+
+.profile-edit{
+    max-width: 500px;
+}
+
+.profile-edit input,textarea { 
+    text-align: center; 
+}
+
+.profile-edit input:hover{ 
+    text-align: center; 
+    background-color: #3a3a3a;
+}
+
+.profile-edit #password2,#password2l{
+    display: none;
+}
+
+textarea { resize: none; }
+
+[contenteditable] {
+    outline: 0px solid transparent;
+}
+
+
+
+.editable-css:not(:focus):empty::before {
+    content: attr(data-placeholder);
+}
+
+.editable-margin{
+    margin-top: 5px;
+    margin-bottom: 15px;
+
+
+}
+
+.btn-margin{
+    margin: 6px; 
+}
+
+
+
+/* https://juejin.cn/post/7131372857682034719 */

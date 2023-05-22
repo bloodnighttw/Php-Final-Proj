@@ -1,0 +1,76 @@
+﻿.top-margin {
+    min-height: 400px;
+}
+
+.top-margin:hover {
+    background-color: #6e6e6e;
+}
+
+.vip-info h1{
+    padding: 15px;
+}
+
+.vip-info p{
+    padding: 10px;
+}
+
+.vip-info img{
+    height: 150px;
+    width: 100%;
+    padding: 0%;
+    object-fit: cover;
+}
+
+
+h1,p{
+    margin-bottom: 0;
+}
+
+.container{
+    padding: 0;
+    padding-bottom: 5px;
+}
+
+.day{
+    padding: 5px;
+}
+
+.archievement img{
+    filter: grayscale(95%);
+    margin: 15px;
+}
+
+.archievement img:hover{
+    filter: grayscale(0%);
+}
+
+
+
+.purchase-card:hover {
+    background-color: #6e6e6e;
+}
+
+a{
+    text-decoration: none;
+}
+
+
+a:visited{
+    color: white;
+}
+
+a{
+    color: white;
+}
+
+.counter{
+    width: 150px;
+}
+
+input{
+    text-align: center;
+}
+
+.purchase-card .input-group{
+    margin-bottom: 12px;
+}
