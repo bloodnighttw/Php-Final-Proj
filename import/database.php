@@ -10,4 +10,3 @@ $db = new mysqli($server_name, $username, $password, $db_name);
 if (!empty($db->connect_error)) {
     die('資料庫連線錯誤:' . $db->connect_error);    // die()：終止程序
 }
-?>

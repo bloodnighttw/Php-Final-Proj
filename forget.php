@@ -3,8 +3,8 @@
 
 <head>
     <?php
-        include 'import/basic.php';
-        include 'import/login.php'
+    include 'import/basic.php';
+    include 'import/login.php'
     ?>
 </head>
 
@@ -16,7 +16,7 @@
         <h1 class="center">忘記密碼</h1>
         <hr>
 
-        <form method="post" action="forget.php">
+        <form method="post" action="./forget.php">
 
             <div class="mb-3">
                 <label for="resend-email" class="form-label">你的電子郵件</label>

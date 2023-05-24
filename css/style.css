@@ -26,10 +26,7 @@
 
 
 .content-preview{
-    padding-right: 15px;
-    padding-left: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;   
+    padding: 5px 15px;
     color: gray;
 
     overflow: hidden;
@@ -104,7 +101,3 @@ textarea { resize: none; }
 .btn-margin{
     margin: 6px; 
 }
-
-
-
-/* https://juejin.cn/post/7131372857682034719 */

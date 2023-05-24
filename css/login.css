@@ -1,5 +1,4 @@
-﻿.vc {  
-    min-height: 100%;
+﻿.vc {
     min-height: 100vh; /* These two lines are counted as one :-)       */
     margin-top: auto;
     margin-bottom: auto;

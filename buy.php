@@ -7,7 +7,6 @@
     include('import/adblock.php');
     include('import/good.php');
     ?>
-
 </head>
 
 <script>
@@ -15,28 +14,28 @@
     let total = 0;
 
     $(function () {
-        $("#buy").click(function () {
+        $("#buy").on("click", function () {
             alert("buy")
         })
 
-        $("#clear").click(function () {
+        $("#clear").on("click", function () {
             $("input[type=text]").each(function () {
                 $(this).val("0")
             })
         })
 
-        $(".add").click(function (e) {
+        $(".add").on("click", function () {
             let temp = $(this).siblings('input')
             temp.val(Number(temp.val()) + 1);
             total += Number(temp.attr('price'))
-            $('#price').text("總共"+total+"元");
+            $('#price').text("總共" + total + "元");
         })
 
-        $(".sub").click(function (e) {
+        $(".sub").on("click", function () {
             let temp = $(this).siblings('input')
             temp.val((Number(temp.val()) > 0) ? Number(temp.val()) - 1 : 0);
             total -= Number(temp.attr('price'))
-            $('#price').text("總共"+total+"元");
+            $('#price').text("總共" + total + "元");
 
         })
     })
@@ -69,14 +68,14 @@ include('import/nav.php');
         for ($i = 0; $i < count($result); $i++) {
             echo '<div class=" p-2 col">';
             echo '    <div class="container rounded shadow  purchase-card ">';
-            echo '            <img src="./img/'.$result[$i][4].'" alt="">';
-            echo '            <h1>' . $result[$i][1].'</h1>';
-            echo '            <p>' . $result[$i][2].'</p>';
-            echo '            <p>$ '.  $result[$i][3].'</p>';
+            echo '            <img src="./img/' . $result[$i][4] . '" alt="">';
+            echo '            <h1>' . $result[$i][1] . '</h1>';
+            echo '            <p>' . $result[$i][2] . '</p>';
+            echo '            <p>$ ' . $result[$i][3] . '</p>';
             echo '            <div class="counter center-text">';
             echo '                <div class="input-group">';
             echo '                    <button class="btn btn-danger sub" type="button">-</button>';
-            echo '                    <input type="text" class="form-control" placeholder="" value="0" name="' . $result[$i][0]. '" price='.$result[$i][3].'>';
+            echo '                    <input type="text" class="form-control" placeholder="" value="0" name="' . $result[$i][0] . '" price=' . $result[$i][3] . '>';
             echo '                    <button class="btn btn-danger add" type="button">+</button>';
             echo '                </div>';
             echo '            </div>';

@@ -17,7 +17,7 @@
 .vip-info img{
     height: 150px;
     width: 100%;
-    padding: 0%;
+    padding: 0;
     object-fit: cover;
 }
 
@@ -27,20 +27,19 @@ h1,p{
 }
 
 .container{
-    padding: 0;
-    padding-bottom: 5px;
+    padding: 0 0 5px;
 }
 
 .day{
     padding: 5px;
 }
 
-.archievement img{
+.achievement img{
     filter: grayscale(95%);
     margin: 15px;
 }
 
-.archievement img:hover{
+.achievement img:hover{
     filter: grayscale(0%);
 }
 

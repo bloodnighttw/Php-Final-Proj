@@ -3,7 +3,7 @@
 
 <head>
     <?php
-        include ('import/basic.php')
+    include('import/basic.php')
     ?>
     <script src="./js/admin.js"></script>
     <link rel="stylesheet" href="./css/admin.css">

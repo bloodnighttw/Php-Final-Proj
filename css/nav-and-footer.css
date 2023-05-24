@@ -1,16 +1,16 @@
-﻿.bg-dark h1{
+﻿.bg-dark h1 {
     color: white;
 }
 
-.nav-card{
+.nav-card {
     margin-top: 10px;
 }
 
-.dark{
+.dark {
     background-color: darkgoldenrod;
 }
 
-.dark div{
+.dark div {
     background-color: white;
 }
 
@@ -18,32 +18,31 @@
     max-width: 1600px;
 }
 
-.img-box{
+.img-box {
     margin-right: 15px;
     position: relative;
 }
 
-.img{
+.img {
     border-radius: 50%;
 }
 
-#nav-avater-menu{
+#nav-avater-menu {
     position: absolute;
-    
-}
-
-.search-menu{
-
-    width:  1250 px;
 
 }
 
-.center-text{
-    width:50%;
+.search-menu {
+    width: 1250px;
+
+}
+
+.center-text {
+    width: 50%;
     margin: auto;
 }
 
-nav .title{
+nav .title {
     margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -51,30 +50,30 @@ nav .title{
     text-align: center;
 }
 
-.bg-dark p{
+.bg-dark p {
     color: white;
 }
 
-h3{
+h3 {
     color: white;
 }
 
-footer{
+footer {
     padding: 5px;
 }
 
-footer p{
+footer p {
     color: gray;
     margin: auto;
     text-align: center;
 }
 
 
-.badge-center{
+.badge-center {
     margin-top: auto;
     margin-bottom: auto;
 }
 
-.samebg{
+.samebg {
     background-color: rgb(43, 48, 53);
 }
