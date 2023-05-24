@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿<?php
+
+if (isset($_POST['email'])) { // if successful
+session_start();
+}
+
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -22,7 +30,7 @@
             <form name="form1" action="login.php" method="POST">
                 <?php
                 if (isset($_POST['email'])) { // if successful
-                    setcookie('userid', $_POST['email']);
+                    //echo session_id() . "id";
                 }
                 ?>
 

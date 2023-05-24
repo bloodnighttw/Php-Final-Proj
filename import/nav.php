@@ -82,7 +82,7 @@
                             我的最愛
                         </a>
                         <ul class="dropdown-menu border-0">
-                            <li><a class="dropdown-item" href="#">list1</a></li>
+                            <li><a class="dropdown-item" href="#"><?php echo session_id()?></a></li>
                             <li><a class="dropdown-item" href="#">list2</a></li>
                             <li>
 
