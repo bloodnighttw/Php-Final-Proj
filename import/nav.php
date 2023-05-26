@@ -10,7 +10,7 @@
             </ul>
         </div>
 
-        <div class="center-text" ST>
+        <div class="center-text">
             <p class="title"><?php echo $page_func ?? "DEFINED" ?></p>
         </div>
 
