@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿<?php
+session_start();
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -62,27 +65,28 @@ include('import/nav.php');
 
         <?php
         require_once('import/database.php');
-        $cmd = 'select * from badgeInfo';
-        $result = $db->query("SELECT * FROM badgeinfo")->fetch_all();
+        $stmt = $db->prepare('select * from badgeInfo');
+        $stmt->execute();
+        $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
         for ($i = 0; $i < count($result); $i++) {
             echo '<div class=" p-2 col">';
             echo '    <div class="container rounded shadow  purchase-card ">';
-            echo '            <img src="./img/' . $result[$i][4] . '" alt="">';
-            echo '            <h1>' . $result[$i][1] . '</h1>';
-            echo '            <p>' . $result[$i][2] . '</p>';
-            echo '            <p>$ ' . $result[$i][3] . '</p>';
+            echo '            <img src="./img/' . $result[$i]['img_id'] . '" alt="">';
+            echo '            <h1>' . $result[$i]['name'] . '</h1>';
+            echo '            <p>' . $result[$i]['description'] . '</p>';
+            echo '            <p>$ ' . $result[$i]['price'] . '</p>';
             echo '            <div class="counter center-text">';
             echo '                <div class="input-group">';
             echo '                    <button class="btn btn-danger sub" type="button">-</button>';
-            echo '                    <input type="text" class="form-control" placeholder="" value="0" name="' . $result[$i][0] . '" price=' . $result[$i][3] . '>';
+            echo '                    <input type="text" class="form-control" placeholder="" value="0" name="' . $result[$i]['id'] . '" price=' . $result[$i]['img_id'] . '>';
             echo '                    <button class="btn btn-danger add" type="button">+</button>';
             echo '                </div>';
             echo '            </div>';
             echo '    </div>';
             echo '</div>';
         }
-        $db->close();
+        unset($db);
         ?>
 
     </div>

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿<?php
+session_start();
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,17 +20,17 @@
         })
 
         $("#avatar").on("click", function () {
-            $("#avatar-upload").click();
+            $("#avatar-upload").trigger('click');
         })
 
 
         $("#badge").on("click", function () {
-            $("#change-badge").click();
+            $("#change-badge").trigger('click');
         })
 
         $(".badge-list").on("click", function () {
             $('#badge').attr("src", $(this).attr('src'))
-            $('#off-close').click();
+            $('#off-close').trigger('click');
         })
 
     })

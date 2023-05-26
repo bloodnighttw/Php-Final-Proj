@@ -52,12 +52,13 @@
         <h1 class="center">註冊</h1>
         <?php
 
-        if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) && isset($_POST['pw']) && isset($_POST['username']) && strlen($_POST['pw']) >= 8 && strlen($_POST['pw']) <= 16) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) && isset($_POST['pw']) && isset($_POST['username']) && strlen($_POST['pw']) >= 8 && strlen($_POST['pw']) <= 16) {
             include './import/database.php';
             $stmt = $db->prepare('INSERT INTO user(username,email,password) values(?,?,?)');
-            $stmt->bind_param("sss", $_POST['username'], $_POST['email'], $_POST['pw']);
-            $stmt->execute();
-        } else
+            if(!$stmt->execute([$_POST['username'], $_POST['email'], $_POST['pw']]))
+                echo '<h1>資料庫出了點狀況 請稍號在試</h1>';
+
+        } else if($_SERVER['REQUEST_METHOD'] == 'POST')
             echo "<h1>你的輸入格式有錯誤 請重新輸入</h1>"
 
         ?>

@@ -1,9 +1,5 @@
 ﻿<?php
-
-if (isset($_POST['email'])) { // if successful
-    session_start();
-}
-
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +21,22 @@ if (isset($_POST['email'])) { // if successful
         <h1 class="center">登入</h1>
         <hr>
 
+        <?php
+        if (isset($_POST['email']) and isset($_POST['pwd'])) { // if successful
+            include 'import/database.php';
+            $stmt = $db->prepare('SELECT id,username,email,password FROM User where email=? and password=?');
+            $stmt->execute([$_POST['email'],$_POST['pwd']]);
+            $result = $stmt->fetch();
+            if(isset($result)){
+                $_SESSION['userid']=$result['id'];
+            }else if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                echo '<h1>錯誤的email或密碼</h1>';
+            }
+
+        }
+
+        ?>
+
         <!--use js to post , not form-->
         <form name="form1" action="login.php" method="POST">
 
@@ -39,7 +51,7 @@ if (isset($_POST['email'])) { // if successful
 
                 <div class="form-check float-start checkbox-vc">
                     <input class="form-check-input" type="checkbox" value="" id="remember">
-                    <label class="form-check-label" for="remeber">
+                    <label class="form-check-label" for="remember">
                         記住密碼
                     </label>
                 </div>
