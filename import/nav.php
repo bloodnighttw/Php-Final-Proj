@@ -15,9 +15,9 @@
         </div>
 
         <?php
-            if(isset($_SESSION['userid'])){
+            if(isset($_SESSION['userid']))
                 include 'import/avatar.php';
-            }else
+            else
                 include "import/logout.php";
 
         ?>

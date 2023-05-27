@@ -14,7 +14,7 @@
         <img src="https://avatars.githubusercontent.com/u/44264182" alt="avatars" height="30" width="30"
              class="img rounded-circle">
 
-        <h5 class="offcanvas-title float-start" id="offcanvasNavbarLabel">李弘唯&nbsp;</h5>
+        <h5 class="offcanvas-title float-start" id="offcanvasNavbarLabel">&nbsp;</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
 
@@ -43,23 +43,13 @@
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="./login.php">登入</a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="./signin.php">註冊</a>
+            </li>
 
 
             <hr>
-            <li class="nav-item dropdown">
-                <a class="nav-link " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    我的最愛
-                </a>
-                <ul class="dropdown-menu border-0">
-                    <li><a class="dropdown-item" href="#"><?php echo session_id() ?></a></li>
-                    <li><a class="dropdown-item" href="#">list2</a></li>
-                    <li>
 
-                    </li>
-                    <li><a class="dropdown-item" href="#">list3</a></li>
-                </ul>
-            </li>
         </ul>
     </div>
 
