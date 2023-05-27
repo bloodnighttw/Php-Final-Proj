@@ -1,6 +1,6 @@
 ﻿<?php
 session_start();
-$success = isset($_POST['email']) and isset($_POST['pwd']);
+$success = isset($_POST['email']) ;
 if($success){
     header('Location: '.'index.php');
 }
@@ -26,7 +26,7 @@ if($success){
         <hr>
 
         <?php
-        if ($success) { // if successful
+        if ($success && isset($_POST['pwd'])) { // if successful
             include 'import/database.php';
             $stmt = $db->prepare('SELECT id,username,email,password FROM User where email=? or username = ? and password=?');
             $stmt->execute([$_POST['email'],$_POST['email'],$_POST['pwd']]);
