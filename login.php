@@ -2,7 +2,7 @@
 session_start();
 $success = isset($_POST['email']) ;
 if($success){
-    header('Location: '.'index.php');
+    header('Location: '.'./index.php');
 }
 ?>
 
@@ -11,8 +11,8 @@ if($success){
 
 <head>
     <?php
-    include('import/basic.php');
-    include('import/login.php');
+    include('./import/basic.php');
+    include('./import/login.php');
     ?>
 </head>
 
@@ -27,7 +27,7 @@ if($success){
 
         <?php
         if ($success && isset($_POST['pwd'])) { // if successful
-            include 'import/database.php';
+            include './import/database.php';
             $stmt = $db->prepare('SELECT id,username,email,password FROM User where email=? or username = ? and password=?');
             $stmt->execute([$_POST['email'],$_POST['email'],$_POST['pwd']]);
             $result = $stmt->fetch();
@@ -42,7 +42,7 @@ if($success){
         ?>
 
         <!--use js to post , not form-->
-        <form name="form1" action="login.php" method="POST">
+        <form name="form1" action="./login.php" method="POST">
 
             <div class="mb-3">
                 <label for="emails" class="form-label">電子郵件</label>
@@ -62,7 +62,7 @@ if($success){
                 <button type="submit" class="btn btn-primary mb-3 float-end btn-padding">登入</button>
 
                 <!--need to perform like url here-->
-                <a href="forget.php" class="btn btn-danger mb-3 float-end btn-padding">忘記密碼</a>
+                <a href="./forget.php" class="btn btn-danger mb-3 float-end btn-padding">忘記密碼</a>
             </div>
 
         </form>

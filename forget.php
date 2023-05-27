@@ -6,8 +6,8 @@ session_start();
 
 <head>
     <?php
-    include 'import/basic.php';
-    include 'import/login.php'
+    include './import/basic.php';
+    include './import/login.php'
     ?>
 </head>
 

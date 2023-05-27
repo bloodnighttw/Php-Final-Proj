@@ -2,7 +2,7 @@
 session_start();
 $canGetProfile = false;
 if (isset($_GET['id'])) {
-    include 'import/database.php';
+    include './import/database.php';
     $stmt = 'select user.id,username,email,badge_id,description,password from user left join profile on user.id = profile.id where user.id=?';
     $pre1 = $db->prepare($stmt);
     if ($pre1->execute([$_GET['id']])) {
@@ -19,6 +19,9 @@ if (isset($_GET['id'])) {
     }
 
     $canChangeProfile = isset($_GET['id']) && $_GET['id'] == $_SESSION['userid'];
+    if(!$canGetProfile){
+        header('./404.php');
+    }
 }
 
 ?>
@@ -27,10 +30,10 @@ if (isset($_GET['id'])) {
 
 <head>
     <?php
-    include('import/basic.php');
-    include('import/adblock.php');
+    include('./import/basic.php');
+    include('./import/adblock.php');
     if ($canChangeProfile)
-        include 'import/editProfile.php';
+        include './import/editProfile.php';
 
     ?>
 
@@ -40,7 +43,7 @@ if (isset($_GET['id'])) {
 
 <?php
 $page_func = "修改個人資料";
-include('import/nav.php');
+include('./import/nav.php');
 ?>
 
 <div class="container" id="body">
@@ -95,11 +98,11 @@ include('import/nav.php');
 
 
         <?php if ($canGetProfile){ ?>
-        <form method="post" action="profile.php?id=<?php echo $_SESSION['userid'] ?>" onsubmit="return getContent()"
+        <form method="post" action="./profile.php?id=<?php echo $_SESSION['userid'] ?>" onsubmit="return getContent()"
               enctype="multipart/form-data">
 
 
-            <img src="img/avatar/<?php echo $id ?>.png" alt="avatars" height="200" width="200"
+            <img src="./img/avatar/<?php echo $id ?>.png" alt="avatars" height="200" width="200"
                  class="img" id="avatar">
 
             <div class="d-none">
@@ -108,7 +111,7 @@ include('import/nav.php');
                 <textarea id="textarea-description" name="description"></textarea>
             </div>
             <div>
-                <img id="badge" src="img/badge/<?php echo $badge_id ?>.png" height="50" width="auto">
+                <img id="badge" src="./img/badge/<?php echo $badge_id ?>.png" height="50" width="auto">
             </div>
 
 
@@ -126,8 +129,8 @@ include('import/nav.php');
                                 aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body small">
-                        <img src="img/badge/0.png" alt="" class="badge-list" height="128" width="auto">
-                        <img src="img/badge/1.png" alt="" class="badge-list" height="128" width="auto">
+                        <img src="./img/badge/0.png" alt="" class="badge-list" height="128" width="auto">
+                        <img src="./img/badge/1.png" alt="" class="badge-list" height="128" width="auto">
                     </div>
                 </div>
                 <div class="">
@@ -139,7 +142,7 @@ include('import/nav.php');
                 <div class="editable-margin">
                     <div data-placeholder="自我介紹"
                         <?php if ($canChangeProfile) echo 'contentEditable="true"' ?> id="description" >
-                        <?php echo nl2br($description)?>
+                        <?php echo nl2br(htmlspecialchars(($description)))?>
                     </div>
                 </div>
 

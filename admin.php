@@ -7,7 +7,7 @@
 
 <head>
     <?php
-    include('import/basic.php')
+    include('./import/basic.php')
     ?>
     <script src="./js/admin.js"></script>
     <link rel="stylesheet" href="./css/admin.css">
@@ -17,7 +17,7 @@
 
 <?php
 $page_func = "ADMIN";
-include('import/nav.php');
+include('./import/nav.php');
 ?>
 
 <div class="container-xxl">

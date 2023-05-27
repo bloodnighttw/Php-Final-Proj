@@ -6,9 +6,9 @@ session_start();
 
 <head>
     <?php
-    include('import/basic.php');
-    include('import/adblock.php');
-    include('import/good.php');
+    include('./import/basic.php');
+    include('./import/adblock.php');
+    include('./import/good.php');
     ?>
 </head>
 
@@ -51,7 +51,7 @@ session_start();
 
 <?php
 $page_func = "所以這是什麼，可以吃嗎?";
-include('import/nav.php');
+include('./import/nav.php');
 ?>
 
 <div class="container-xxl">

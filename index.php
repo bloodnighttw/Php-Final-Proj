@@ -6,8 +6,8 @@ session_start();
 
 <head>
     <?php
-    include('import/basic.php');
-    include('import/adblock.php');
+    include('./import/basic.php');
+    include('./import/adblock.php');
     ?>
 </head>
 
@@ -16,7 +16,7 @@ session_start();
 
 <?php
 $page_func = "首頁";
-include('import/nav.php')
+include('./import/nav.php')
 ?>
 
 <br>
