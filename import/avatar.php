@@ -2,7 +2,7 @@
      aria-label="Toggle navigation">
 
     <div class="img-box">
-        <img src="https://avatars.githubusercontent.com/u/44264182" alt="avatars" height="35" width="35"
+        <img src="./img/avatar/<?php echo $_SESSION['userid'] ?? 'guest'?>.png" alt="avatars" height="35" width="35"
              class="img">
         <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger   rounded-circle">
 
@@ -13,7 +13,7 @@
 <div class="offcanvas offcanvas-end " tabindex="-1" id="profile" aria-labelledby="offcanvasNavbarLabel">
 
     <div class="offcanvas-header">
-        <img src="https://avatars.githubusercontent.com/u/44264182" alt="avatars" height="30" width="30"
+        <img src="./img/avatar/<?php echo $_SESSION['userid'] ?? 'guest'?>.png" alt="avatars" height="30" width="30"
              class="img" class="rounded-circle">
 
         <h5 class="offcanvas-title float-start" id="offcanvasNavbarLabel">李弘唯&nbsp;</h5>

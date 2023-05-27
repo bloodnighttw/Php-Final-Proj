@@ -95,7 +95,7 @@ quill.setContents(default_contetnt.ops)
 
 
 
-$('#edit').click(function(e){
+$('#edit').on('click',function(e){
     e.preventDefault();
     $('#title').attr('contenteditable','true')
     let temp = quill.getContents();
@@ -103,11 +103,11 @@ $('#edit').click(function(e){
     quill.enable();
 })
 
-$('#del').click(function(e){
+$('#del').on('click',function(e){
     e.preventDefault();
 })
 
-$(document).ready(function(){
+$(document).on('ready',function(){
     $('#comment .comment-editor').each(function(){
         let quill = new Quill(this, {
             modules: {
