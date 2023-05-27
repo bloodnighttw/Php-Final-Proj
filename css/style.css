@@ -101,3 +101,5 @@ textarea { resize: none; }
 .btn-margin{
     margin: 6px; 
 }
+
+*[contenteditable="true"]{display: inline-block;}

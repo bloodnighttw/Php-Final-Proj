@@ -54,7 +54,7 @@ include('import/nav.php');
                  class="img" id="avatar">
 
             <div>
-                <img id="badge" src="./img/badge2.png" height="50" width="auto">
+                <img id="badge" src="img/badge/1.png" height="50" width="auto">
             </div>
 
 

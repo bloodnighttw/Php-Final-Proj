@@ -55,7 +55,8 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) && isset($_POST['pw']) && isset($_POST['username']) && strlen($_POST['pw']) >= 8 && strlen($_POST['pw']) <= 16) {
             include './import/database.php';
             $checkExistStatmnt = $db->prepare('SELECT id from user where username = ? or email = ?');
-            $stmt = $db->prepare('INSERT INTO user(username,email,password) values(?,?,?)');
+            $stmt1 = $db->prepare('INSERT INTO user(username,email,password) values(?,?,?)');
+            $stmt2 = $db->prepare('INSERT INTO profile(id) values(?)');
 
 
             if(!$checkExistStatmnt->execute([$_POST['username'], $_POST['email']])){
@@ -68,10 +69,13 @@
                 }
 
                 if(!is_array($result))
-                    if(!$stmt->execute([$_POST['username'], $_POST['email'],$_POST['pw']])) {
+                    if(!$stmt1->execute([$_POST['username'], $_POST['email'],$_POST['pw']])) {
                         echo '<div class="alert alert-danger" role="alert">資料庫錯誤 請稍號在試(error code:db003)</div>';
                     }else{
-                        echo '<div class="alert alert-success" role="alert">成功註冊 請重新登入</div>';
+                        if($stmt2->execute([$db->lastInsertId()])){
+                            echo '<div class="alert alert-success" role="alert">成功註冊 請重新登入</div>';
+                        }else
+                            echo '<div class="alert alert-danger" role="alert">資料庫錯誤 請稍號在試(error code:db004)</div>';
                     }
                 else{
                     echo '<div class="alert alert-danger" role="alert">重複的username或email</div>';

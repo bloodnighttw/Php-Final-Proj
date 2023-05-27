@@ -77,17 +77,17 @@ include('import/nav.php')
                                     width="auto" class="img rounded-circle"> bloodnighttw </p></div>
 
                     <div class="badge-list">
-                        <img src="./img/badge1.png" class="badge-img" alt="badge1">
+                        <img src="img/badge/0.png" class="badge-img" alt="badge1">
                         <div class="badge-content shadow bg-dark rounded border-5"><h6>榮譽獎章</h6>
                             <p>你可以在此處購買獎章獎勵你喜歡的文章</p></div>
                     </div>
                     <div class="badge-list">
-                        <img src="./img/badge1.png" class="badge-img" alt="badge1">
+                        <img src="img/badge/0.png" class="badge-img" alt="badge1">
                         <div class="badge-content shadow bg-dark rounded border-5"><h6>榮譽獎章</h6>
                             <p>你可以在此處購買獎章獎勵你喜歡的文章</p></div>
                     </div>
                     <div class="badge-list">
-                        <img src="./img/badge1.png" class="badge-img" alt="badge1">
+                        <img src="img/badge/0.png" class="badge-img" alt="badge1">
                         <div class="badge-content shadow bg-dark rounded border-5"><h6>榮譽獎章</h6>
                             <p>你可以在此處購買獎章獎勵你喜歡的文章</p></div>
                     </div>

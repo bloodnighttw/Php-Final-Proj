@@ -1,6 +1,25 @@
 ﻿<?php
 session_start();
+$canGetProfile = false;
+if (isset($_GET['id'])) {
+    include 'import/database.php';
+    $stmt = 'select user.id,username,email,badge_id,description,password from user left join profile on user.id = profile.id where user.id=?';
+    $pre1 = $db->prepare($stmt);
+    if ($pre1->execute([$_GET['id']])) {
+        $result = $pre1->fetch();
+        if ($result) {
+            $id = $result['id'];
+            $description = $result['description'];
+            $badge_id = $result['badge_id'];
+            $email = $result['email'];
+            $user = $result['username'];
+            $password = $result['password'];
+            $canGetProfile = true;
+        }
+    }
 
+    $canChangeProfile = isset($_GET['id']) && $_GET['id'] == $_SESSION['userid'];
+}
 
 ?>
 <!DOCTYPE html>
@@ -10,9 +29,9 @@ session_start();
     <?php
     include('import/basic.php');
     include('import/adblock.php');
-    $canChangeProfile = isset($_GET['id']) && $_GET['id'] == $_SESSION['userid'];
-    if($canChangeProfile)
+    if ($canChangeProfile)
         include 'import/editProfile.php';
+
     ?>
 
 </head>
@@ -32,33 +51,64 @@ include('import/nav.php');
                 <h3 class="title-preview">廣告</h3>
                 <p class="content-preview">
                     <?php
-                        echo $_SESSION['userid'];
+                    echo $_SESSION['userid'];
                     ?>
                 </p>
             </div>
         </a>
     </div>
 
+    <?php
+    if (isset($_FILES['avatar-upload']) && isset($_SESSION['userid'])
+        && move_uploaded_file($_FILES['avatar-upload']['tmp_name'], './img/avatar/' . $_SESSION['userid'] . '.png')) {
+        echo '<div class="alert alert-success container profile-edit  text-center" role="alert">成功上傳大頭照</div>';
+    }
+
+    if ($canChangeProfile && $_SERVER['REQUEST_METHOD'] == 'POST' && $canGetProfile) {
+
+        if (isset($_POST['description']) && $_POST['description'] != "_NO_CHANGE_" && $description != strip_tags(($_POST['description']),'<br>')) {
+            $pre3 = $db->prepare('UPDATE profile SET description=? WHERE id= ?');
+            if (!$pre3->execute([(($_POST['description'])), $_SESSION['userid']]))
+                echo '<div class="alert alert-danger" role="alert">資料庫錯誤 請稍號在試(error code:db006)</div>';
+            else {
+                echo '<div class="alert alert-success container profile-edit  text-center" role="alert">' . '成功修改你的自我介紹'. '</div>';
+                $description =(($_POST['description']));
+            }
+        }
+
+        if (isset($_POST['badge-id']) && $badge_id != $_POST['badge-id']) {
+            $pre4 = $db->prepare('UPDATE profile SET badge_id=? WHERE id= ?');
+            if (!$pre4->execute([$_POST['badge-id'], $_SESSION['userid']]))
+                echo '<div class="alert alert-danger" role="alert">資料庫錯誤 請稍號在試(error code:db007)</div>';
+            else {
+                echo '<div class="alert alert-success container profile-edit  text-center" role="alert">成功修改你的獎牌</div>';
+                $badge_id = $_POST['badge-id'];
+            }
+        }
+
+
+    }
+
+    ?>
+
     <div class="rounded container shadow  text-center profile-edit">
-        <?php if(isset($_FILES['avatar-upload']) && isset($_SESSION['userid'])){
-            if(move_uploaded_file($_FILES['avatar-upload']['tmp_name'],'./img/avatar/'.$_SESSION['userid'] .'.' . pathinfo($_FILES['avatar-upload']['name'],PATHINFO_EXTENSION)))
-                echo "success";
-
-         } ?>
-
-        <form method="post" action="profile.php?id=<?php echo $_SESSION['userid']?>" onsubmit="return getContent()" enctype="multipart/form-data">
 
 
-            <img src="https://avatars.githubusercontent.com/u/44264182" alt="avatars" height="200" width="200"
+        <?php if ($canGetProfile){ ?>
+        <form method="post" action="profile.php?id=<?php echo $_SESSION['userid'] ?>" onsubmit="return getContent()"
+              enctype="multipart/form-data">
+
+
+            <img src="img/avatar/<?php echo $id ?>.png" alt="avatars" height="200" width="200"
                  class="img" id="avatar">
 
             <div class="d-none">
-                <input class="" type="file" name="avatar-upload" id="avatar-upload">
-                <input type="text" id="badge-id" name="badge-id">
+                <input class="" type="file" name="avatar-upload" id="avatar-upload" accept="image/png">
+                <input type="text" id="badge-id" name="badge-id" value="<?php echo $badge_id ?>">
                 <textarea id="textarea-description" name="description"></textarea>
             </div>
             <div>
-                <img id="badge" src="./img/badge2.png" height="50" width="auto">
+                <img id="badge" src="img/badge/<?php echo $badge_id ?>.png" height="50" width="auto">
             </div>
 
 
@@ -76,18 +126,20 @@ include('import/nav.php');
                                 aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body small">
-                        <img src="./img/badge1.png" alt="" class="badge-list" height="128" width="auto">
-                        <img src="./img/badge2.png" alt="" class="badge-list" height="128" width="auto">
+                        <img src="img/badge/0.png" alt="" class="badge-list" height="128" width="auto">
+                        <img src="img/badge/1.png" alt="" class="badge-list" height="128" width="auto">
                     </div>
                 </div>
                 <div class="">
-                    <input type="text" class="form-control-plaintext rounded" id="username" value="bloodnighttw" name="username"
-                           placeholder="使用者名稱" <?php if(!$canChangeProfile)echo 'readonly'?>>
+                    <input type="text" class="form-control-plaintext rounded" id="username" value="<?php echo $user ?>"
+                           name="username"
+                           placeholder="使用者名稱" <?php if (!$canChangeProfile) echo 'readonly' ?>>
                 </div>
 
                 <div class="editable-margin">
-                    <div data-placeholder="自我介紹" <?php if($canChangeProfile)echo 'contentEditable="true"'?> id="description">
-                        他沒有寫什麼在這邊。
+                    <div data-placeholder="自我介紹"
+                        <?php if ($canChangeProfile) echo 'contentEditable="true"' ?> id="description" >
+                        <?php echo nl2br($description)?>
                     </div>
                 </div>
 
@@ -96,34 +148,35 @@ include('import/nav.php');
                     <label for="staticEmail" class=" col-form-label">電子郵件</label>
 
                     <input type="email" class="form-control-plaintext rounded" id="staticEmail"
-                           value="email@example.com" readonly>
+                           value="<?php echo $email ?>" readonly>
                 </div>
             </div>
-            <?php
-                if($canChangeProfile) echo <<<'EOF'
+            <?php if ($canChangeProfile) { ?>
                 <div>
                     <label for="password1" class="col-form-label rounded">密碼</label>
                     <div class="col">
                         <input type="password" class="form-control-plaintext rounded" id="password1"
-                               value="ouo123ouo123">
+                               value="<?php echo $password ?>">
                     </div>
                 </div>
                 <div id="password2">
                     <label for="password2" class="col-form-label rounded">重複密碼</label>
                     <div class="col">
-                        <input type="password" class="form-control-plaintext rounded" value="ouo123ouo123">
+                        <input type="password" class="form-control-plaintext rounded" value="">
                     </div>
                 </div>
-    
+
                 <div class="mb-3 row btn-margin">
                     <button type="submit" class="btn btn-primary">更新個人檔案</button>
                 </div>
-EOF;
-            ?>
-
+            <?php } ?>
 
             <br>
 
+            <?php } else { ?>
+
+
+            <?php } ?>
 
         </form>
 
