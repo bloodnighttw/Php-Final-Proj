@@ -1,5 +1,7 @@
 ﻿<?php
 session_start();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,35 +10,12 @@ session_start();
     <?php
     include('import/basic.php');
     include('import/adblock.php');
+    $canChangeProfile = isset($_GET['id']) && $_GET['id'] == $_SESSION['userid'];
+    if($canChangeProfile)
+        include 'import/editProfile.php';
     ?>
 
 </head>
-
-<script>
-
-    $(function () {
-        $("#password1").on("keydown", function () {
-            $("#password2").fadeIn();
-        })
-
-        $("#avatar").on("click", function () {
-            $("#avatar-upload").trigger('click');
-        })
-
-
-        $("#badge").on("click", function () {
-            $("#change-badge").trigger('click');
-        })
-
-        $(".badge-list").on("click", function () {
-            $('#badge').attr("src", $(this).attr('src'))
-            $('#off-close').trigger('click');
-        })
-
-    })
-
-
-</script>
 
 <body class="bg-dark" data-bs-theme="dark">
 
@@ -52,22 +31,31 @@ include('import/nav.php');
             <div class=" preview-box">
                 <h3 class="title-preview">廣告</h3>
                 <p class="content-preview">
-                    adsence沒辦法用Text ad ，只好另外找了。
+                    <?php
+                        echo $_SESSION['userid'];
+                    ?>
                 </p>
             </div>
         </a>
     </div>
 
     <div class="rounded container shadow  text-center profile-edit">
+        <?php if(isset($_FILES['avatar-upload']) && isset($_SESSION['userid'])){
+            if(move_uploaded_file($_FILES['avatar-upload']['tmp_name'],'./img/avatar/'.$_SESSION['userid'] .'.' . pathinfo($_FILES['avatar-upload']['name'],PATHINFO_EXTENSION)))
+                echo "success";
 
-        <form>
+         } ?>
+
+        <form method="post" action="profile.php?id=<?php echo $_SESSION['userid']?>" onsubmit="return getContent()" enctype="multipart/form-data">
 
 
             <img src="https://avatars.githubusercontent.com/u/44264182" alt="avatars" height="200" width="200"
-                 class="img" id="avater">
+                 class="img" id="avatar">
 
-            <div class="mb-3 d-none">
-                <input class="form-control" type="file" id="avater-upload">
+            <div class="d-none">
+                <input class="" type="file" name="avatar-upload" id="avatar-upload">
+                <input type="text" id="badge-id" name="badge-id">
+                <textarea id="textarea-description" name="description"></textarea>
             </div>
             <div>
                 <img id="badge" src="./img/badge2.png" height="50" width="auto">
@@ -88,20 +76,17 @@ include('import/nav.php');
                                 aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body small">
-                        <img src="./img/badge1.png" alt="" class="badge-list" height="512" width="auto">
-                        <img src="./img/badge2.png" alt="" class="badge-list" height="512" width="auto">
+                        <img src="./img/badge1.png" alt="" class="badge-list" height="128" width="auto">
+                        <img src="./img/badge2.png" alt="" class="badge-list" height="128" width="auto">
                     </div>
                 </div>
                 <div class="">
-                    <input type="text" class="form-control-plaintext rounded" id="username" value="bloodnighttw"
-                           placeholder="使用者名稱">
+                    <input type="text" class="form-control-plaintext rounded" id="username" value="bloodnighttw" name="username"
+                           placeholder="使用者名稱" <?php if(!$canChangeProfile)echo 'readonly'?>>
                 </div>
 
-                <div></div>
-
-
                 <div class="editable-margin">
-                    <div contentEditable="true" class="con editable editable-css" data-placeholder="自我介紹">
+                    <div data-placeholder="自我介紹" <?php if($canChangeProfile)echo 'contentEditable="true"'?> id="description">
                         他沒有寫什麼在這邊。
                     </div>
                 </div>
@@ -114,23 +99,27 @@ include('import/nav.php');
                            value="email@example.com" readonly>
                 </div>
             </div>
-            <div class="">
-                <label for="password1" class="col-form-label rounded">密碼</label>
-                <div class="col">
-                    <input type="password" class="form-control-plaintext rounded" id="password1"
-                           value="ouo123ouo123">
+            <?php
+                if($canChangeProfile) echo <<<'EOF'
+                <div>
+                    <label for="password1" class="col-form-label rounded">密碼</label>
+                    <div class="col">
+                        <input type="password" class="form-control-plaintext rounded" id="password1"
+                               value="ouo123ouo123">
+                    </div>
                 </div>
-            </div>
-            <div class="" id="password2">
-                <label for="password2" class="col-form-label rounded">重複密碼</label>
-                <div class="col">
-                    <input type="password" class="form-control-plaintext rounded" value="ouo123ouo123">
+                <div id="password2">
+                    <label for="password2" class="col-form-label rounded">重複密碼</label>
+                    <div class="col">
+                        <input type="password" class="form-control-plaintext rounded" value="ouo123ouo123">
+                    </div>
                 </div>
-            </div>
-
-            <div class="mb-3 row btn-margin">
-                <button type="button" class="btn btn-primary">更新個人檔案</button>
-            </div>
+    
+                <div class="mb-3 row btn-margin">
+                    <button type="submit" class="btn btn-primary">更新個人檔案</button>
+                </div>
+EOF;
+            ?>
 
 
             <br>

@@ -24,10 +24,10 @@ session_start();
         <?php
         if (isset($_POST['email']) and isset($_POST['pwd'])) { // if successful
             include 'import/database.php';
-            $stmt = $db->prepare('SELECT id,username,email,password FROM User where email=? and password=?');
-            $stmt->execute([$_POST['email'],$_POST['pwd']]);
+            $stmt = $db->prepare('SELECT id,username,email,password FROM User where email=? or username = ? and password=?');
+            $stmt->execute([$_POST['email'],$_POST['email'],$_POST['pwd']]);
             $result = $stmt->fetch();
-            if(isset($result)){
+            if(is_array($result)){
                 $_SESSION['userid']=$result['id'];
             }else if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 echo '<h1>錯誤的email或密碼</h1>';

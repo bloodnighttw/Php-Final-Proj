@@ -52,7 +52,7 @@
 
 
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="./profile.php?=<?php echo $_SESSION['userid']?>">個人檔案</a>
+                <a class="nav-link active" aria-current="page" href="./profile.php?id=<?php echo $_SESSION['userid']?>">個人檔案</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="./logout.php">登出</a>
