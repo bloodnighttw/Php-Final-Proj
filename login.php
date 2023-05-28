@@ -46,7 +46,7 @@ if($success){
 
             <div class="mb-3">
                 <label for="emails" class="form-label">電子郵件</label>
-                <input type="email" class="form-control" id="emails" placeholder="name@example.com" name='email'>
+                <input type="text" class="form-control" id="emails" placeholder="name@example.com" name='email'>
             </div>
             <label for="pw" class="form-label">密碼</label>
             <input type="password" id="pw" class="form-control" aria-labelledby="passwordHelpBlock" name='pwd'>

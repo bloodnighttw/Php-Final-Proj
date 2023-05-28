@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     $del = $db->prepare('DELETE FROM badgeinfo where id=?');
+    $del2 = $db->prepare('DELETE FROM inventory where badge_id=?');
     $updatePrice = $db->prepare('UPDATE badgeinfo SET price=? where id=?');
     $new = $db->prepare('INSERT into badgeinfo(badgeinfo.name,description,price) values(?,?,?)');
 
@@ -25,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['badge_' . $result[$i]['id']])) {
                 if ($_POST['badge_' . $result[$i]['id']] == "REMOVE") {
                     $del->execute([$result[$i]['id']]);
+                    $del2->execute([$result[$i]['id']]);
                 } else {
                     $updatePrice->execute([$_POST['badge_' . $result[$i]['id']], $result[$i]['id']]);
                 }

@@ -4,7 +4,6 @@ require_once('./import/database.php');
 $stmt = $db->prepare('select * from badgeInfo');
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-echo 'yo';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     for ($i = 0; $i < count($result); $i++) {
@@ -13,17 +12,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (!isset($_POST[$badge_id]))
             continue;
+
+        $updateSucess = false;
+        $insertSucess = false;
+
         $amount = (int)$_POST[$badge_id];
+        if($amount==0)
+            continue;
 
         $getOrginalResult = $db->prepare('SELECT amount from inventory where user_id = ? and badge_id=?');
         $getOrginalResult->execute([$_SESSION['userid'], $badge_id]);
         $orginalAmount = $getOrginalResult->fetch();
         if (is_array($orginalAmount)) {
             $updateStmt = $db->prepare('UPDATE inventory SET amount=? where user_id=? and badge_id = ?');
-            $updateStmt->execute([$amount + (int)$orginalAmount['amount'], $_SESSION['userid'], $badge_id]);
+            $updateSucess = $updateStmt->execute([$amount + (int)$orginalAmount['amount'], $_SESSION['userid'], $badge_id]);
         } else {//not exist
+            echo 'error1';
             $insertStmt = $db->prepare('INSERT into inventory(amount,user_id,badge_id) values (?,?,?)');
-            $insertStmt->execute([$amount, $_SESSION['userid'], $badge_id]);
+            $insertSucess = $insertStmt->execute([$amount, $_SESSION['userid'], $badge_id]);
         }
 
 
@@ -65,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $(".sub").on("click", function () {
             let temp = $(this).siblings('input')
-            total -= (temp.val() === "0") ? 0 : Number(temp.attr('price'));
+            total -= (temp.val() == "0") ? 0 : Number(temp.attr('price'));
             temp.val((Number(temp.val()) > 0) ? Number(temp.val()) - 1 : 0);
             $('#price').text("總共" + total + "元");
 
@@ -90,24 +96,31 @@ include('./import/nav.php');
     <p class="text-center">任何獲得獎章的人將會獲得經驗值獎勵</p>
     <hr>
 
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if($updateSucess || $insertSucess)
+            echo '<h1 class="alert alert-success container profile-edit  text-center" role="alert">成功消費</h1>';
+    }
+    ?>
+
+
     <form method="post" action="./buy.php">
 
         <div class="text-center row row-cols-1 row-cols-md-2 row-cols-lg-4 vip-info">
 
             <?php
-
             for ($i = 0; $i < count($result); $i++) { ?>
                 <div class=" p-2 col">
                     <div class="container rounded shadow  purchase-card ">
                         <img src="./img/good/<?php echo $result[$i]['id'] ?>.png" alt="">
                         <h1><?php echo $result[$i]['name'] ?></h1>
                         <p><?php echo $result[$i]['description'] ?></p>
-                        <p>$<?php echo $result[$i]['price'] ?></p>
+                        <p><?php echo $result[$i]['price'] ?></p>
                         <div class="counter center-text">
                             <div class="input-group">
                                 <button class="btn btn-danger sub" type="button">-</button>
                                 <input type="text" class="form-control" value="0"
-                                       name="<?php $result[$i]['id'] ?>" price="<?php echo $result[$i]['price'] ?>"
+                                       name="<?php echo $result[$i]['id'] ?>" price="<?php echo $result[$i]['price'] ?>"
                                        readonly>
                                 <button class="btn btn-danger add" type="button">+</button>
                             </div>

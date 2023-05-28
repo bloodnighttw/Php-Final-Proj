@@ -11,7 +11,7 @@
 
 ## 資料庫連線
 
-- 連線部分使用PDO而不是mysqli，原因後面會講
+- 連線部分使用PDO而不是`mysqli`，原因後面會講
 - 使用`prepare`避免sql injection，使用方法如下
     ```php
     $stmt = $db->prepare('SELECT id,username,email,password FROM User where email=? or username =? and password=?');

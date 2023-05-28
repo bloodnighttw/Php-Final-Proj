@@ -16,7 +16,7 @@
         <img src="./img/avatar/<?php echo $_SESSION['userid'] ?? 'guest'?>.png" alt="avatars" height="30" width="30"
              class="img" class="rounded-circle">
 
-        <h5 class="offcanvas-title float-start" id="offcanvasNavbarLabel">李弘唯&nbsp;</h5>
+        <h5 class="offcanvas-title float-start" id="offcanvasNavbarLabel">&nbsp;</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
 
@@ -50,6 +50,9 @@
 
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="./profile.php?id=<?php echo $_SESSION['userid']?>">個人檔案</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="./inventory.php">已購買獎章</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="./logout.php">登出</a>
