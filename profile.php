@@ -19,7 +19,7 @@ if (isset($_GET['id'])) {
     }
 
     $canChangeProfile = isset($_GET['id']) && $_GET['id'] == $_SESSION['userid'];
-    if(!$canGetProfile){
+    if (!$canGetProfile) {
         header('./404.php');
     }
 }
@@ -69,13 +69,13 @@ include('./import/nav.php');
 
     if ($canChangeProfile && $_SERVER['REQUEST_METHOD'] == 'POST' && $canGetProfile) {
 
-        if (isset($_POST['description']) && $_POST['description'] != "_NO_CHANGE_" && $description != strip_tags(($_POST['description']),'<br>')) {
+        if (isset($_POST['description']) && $_POST['description'] != "_NO_CHANGE_" && $description != strip_tags(($_POST['description']), '<br>')) {
             $pre3 = $db->prepare('UPDATE profile SET description=? WHERE id= ?');
             if (!$pre3->execute([(($_POST['description'])), $_SESSION['userid']]))
                 echo '<div class="alert alert-danger" role="alert">資料庫錯誤 請稍號在試(error code:db006)</div>';
             else {
-                echo '<div class="alert alert-success container profile-edit  text-center" role="alert">' . '成功修改你的自我介紹'. '</div>';
-                $description =(($_POST['description']));
+                echo '<div class="alert alert-success container profile-edit  text-center" role="alert">' . '成功修改你的自我介紹' . '</div>';
+                $description = (($_POST['description']));
             }
         }
 
@@ -98,9 +98,11 @@ include('./import/nav.php');
 
 
         <?php if ($canGetProfile){ ?>
+
+    <?php if ($canChangeProfile){ ?>
         <form method="post" action="./profile.php?id=<?php echo $_SESSION['userid'] ?>" onsubmit="return getContent()"
               enctype="multipart/form-data">
-
+            <?php } ?>
 
             <img src="./img/avatar/<?php echo $id ?>.png" alt="avatars" height="200" width="200"
                  class="img" id="avatar">
@@ -141,8 +143,8 @@ include('./import/nav.php');
 
                 <div class="editable-margin">
                     <div data-placeholder="自我介紹"
-                        <?php if ($canChangeProfile) echo 'contentEditable="true"' ?> id="description" >
-                        <?php echo nl2br(htmlspecialchars(($description)))?>
+                        <?php if ($canChangeProfile) echo 'contentEditable="true"' ?> id="description">
+                        <?php echo nl2br(htmlspecialchars(($description))) ?>
                     </div>
                 </div>
 
@@ -181,8 +183,9 @@ include('./import/nav.php');
 
             <?php } ?>
 
+        <?php if ($canChangeProfile){ ?>
         </form>
-
+        <?php } ?>
 
     </div>
 

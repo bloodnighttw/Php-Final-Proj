@@ -39,9 +39,6 @@
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="./buy.php">
                     <span>購買獎章</span>
-                    <span class="float-end badge bg-danger justify-content-center badge-center">
-                                你尚未結帳
-                            </span>
                 </a>
 
             </li>

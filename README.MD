@@ -50,6 +50,15 @@
 | PRIMARY KEY INT(8) |  VARCHAR(12)  |    TEXT     | INT(2) | INT(8) |
 |       商品的ID        | 使用者名稱使用的badge |    商品介紹     |   價格   | 圖片的id  |
 
+### INVENTORY
+
+- 儲存使用者已經購買的東西
+
+| user_id |  name  | amount |
+|:-------:|:------:|:------:|
+| INT(8)  | INT(8) | INT(8) |
+| 使用者的ID  |  商品id  |   數量   |
+
 ---
 
 ### PERMISSION(尚未完成)
