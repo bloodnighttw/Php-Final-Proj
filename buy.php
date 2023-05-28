@@ -50,7 +50,7 @@ session_start();
 <body class="bg-dark" data-bs-theme="dark">
 
 <?php
-$page_func = "所以這是什麼，可以吃嗎?";
+$page_func = "購買badge";
 include('./import/nav.php');
 ?>
 
@@ -64,7 +64,7 @@ include('./import/nav.php');
     <div class="text-center row row-cols-1 row-cols-md-2 row-cols-lg-4 vip-info">
 
         <?php
-        require_once('import/database.php');
+        require_once('./import/database.php');
         $stmt = $db->prepare('select * from badgeInfo');
         $stmt->execute();
         $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -72,14 +72,14 @@ include('./import/nav.php');
         for ($i = 0; $i < count($result); $i++) {
             echo '<div class=" p-2 col">';
             echo '    <div class="container rounded shadow  purchase-card ">';
-            echo '            <img src="./img/' . $result[$i]['img_id'] . '" alt="">';
+            echo '            <img src="./img/good/' . $result[$i]['id'] . '.png" alt="">';
             echo '            <h1>' . $result[$i]['name'] . '</h1>';
             echo '            <p>' . $result[$i]['description'] . '</p>';
             echo '            <p>$ ' . $result[$i]['price'] . '</p>';
             echo '            <div class="counter center-text">';
             echo '                <div class="input-group">';
             echo '                    <button class="btn btn-danger sub" type="button">-</button>';
-            echo '                    <input type="text" class="form-control" placeholder="" value="0" name="' . $result[$i]['id'] . '" price=' . $result[$i]['img_id'] . '>';
+            echo '                    <input type="text" class="form-control" placeholder="" value="0" name="' . $result[$i]['id'] . '" price=' . $result[$i]['price'] . ' readonly>';
             echo '                    <button class="btn btn-danger add" type="button">+</button>';
             echo '                </div>';
             echo '            </div>';

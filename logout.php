@@ -7,4 +7,4 @@ foreach ( $_COOKIE as $key => $value )
 {
     setcookie( $key, $value, $past, '/' );
 }
-header('Location: '.'index.php');
+header('Location: '.'./index.php');

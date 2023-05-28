@@ -21,7 +21,7 @@
         $_SESSION['userid']=$result['id'];
     }
     ```
-- 因為mysqli的`prepare`在使用 `SELECT`時，有時候會有一些狀況，所以改成使用PDO。
+- 因為mysqli的`prepare`在使用 `SELECT`時，有時候會有一些狀況，所以改成使用`PDO`。
 
 ### USER
 
@@ -60,10 +60,10 @@
 
 ### Content(尚未完成)
 
-|         id         |    title     | content | upvote | downvote |
-|:------------------:|:------------:|:-------:|:------:|:--------:|
-| PRIMARY KEY INT(8) | VARCHAR(128) |  TEXT   | INT(8) |  INT(8)  |
-|       文章的ID        |     文章標題     |  文章內容   | upvote | downvote |
+|         id         |    title     |   time    | content | upvote | downvote |
+|:------------------:|:------------:|:---------:|:-------:|:------:|:--------:|
+| PRIMARY KEY INT(8) | VARCHAR(128) | TIMESTAMP |  TEXT   | INT(8) |  INT(8)  |
+|       文章的ID        |     文章標題     |    時間     |  文章內容   | upvote | downvote |
 
 ### Comment(尚未完成)
 
@@ -95,16 +95,17 @@
 - `/logout.php` 登出會被導到這個網頁來，在清除所有`cookie`和`session`資訊後，重新導入到 `/index.php`
 - `/profile.php?id={id}` 使用者資訊，id對應到使用者id，如果找不到id，將會被導到`/404.php`
 - `/buy.php` 顯示所有可以購買的badge，會從資料庫裡的`BADGEINFO`撈資料。
-- `/forget.php` 網際密碼(功能尚未時裝)
+- `/forget.php` 忘記密碼(功能尚未時裝)
+- `/admin/new-badge.php` 新稱badge的網頁，只有管理員能進入。
+
 
 ## 網頁(規劃中)
 
-- `/admin/new-badge.php` 新稱badge的網頁，只有管理員能進入。
 - `/admin/new-ad.php` 新增廣告資訊的地方
 - `/admin/ban-user.php?id={id}` 把使用者封禁的地方，`id`對應到使用者id。
 - `/admin/del-content?id={id}` 刪除文章的地方，`id`對應到文章id。
 - `/report.php?userid={userid}&contentid={contentid}&commentid={commentid}&r={url}` 檢舉的地方，`userid`
-  對應到使用者id，`commentid`對應到留言id，`contentid`對應到文章id，url對應到要回去的url，都可為空，但不可全為空。
+  對應到使用者id，`commentid`對應到留言id，`contentid`對應到文章id，`url`對應到要回去的url，都可為空，但不可全為空。
 - `/admin/report.php` 管理員篩選檢舉的地方。
 
 ## API (規劃中)
