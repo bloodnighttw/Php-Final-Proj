@@ -59,6 +59,14 @@
 | INT(8)  | INT(8) | INT(8) |
 | 使用者的ID  |  商品id  |   數量   |
 
+
+### Content
+
+|         id         |    title     |   time    |    delta     |        count         |
+|:------------------:|:------------:|:---------:|:------------:|:--------------------:|
+| PRIMARY KEY INT(8) | VARCHAR(128) | TIMESTAMP |     JSON     |        INT(8)        |
+|       文章的ID        |     文章標題     |    時間     | 文章內容格式，下面有說明 | sub(upvote,downvote) |
+
 ---
 
 ### PERMISSION(尚未完成)
@@ -67,12 +75,7 @@
 | PRIMARY KEY INT(8) |   INT(8)   |
 |       使用者ID        |   使用者名稱    |
 
-### Content(尚未完成)
 
-|         id         |    title     |   time    |    delta     | count  |
-|:------------------:|:------------:|:---------:|:------------:|:------:|
-| PRIMARY KEY INT(8) | VARCHAR(128) | TIMESTAMP |     JSON     | INT(8) |
-|       文章的ID        |     文章標題     |    時間     | 文章內容格式，下面有說明 | upvote |
 
 ### Comment(尚未完成)
 
@@ -117,37 +120,22 @@
   對應到使用者id，`commentid`對應到留言id，`contentid`對應到文章id，`url`對應到要回去的url，都可為空，但不可全為空。
 - `/admin/report.php` 管理員篩選檢舉的地方。
 
-## API (規劃中)
+## API
 
-- 載入編輯器的網頁時，會setcookie()，把api token存進去client，呼叫api時，會使用此token。
+- 使用 `axios`呼叫API，並傳送php 的session cookie，作為`TOKEN`。
 
 ### GET
 
-- `/api/ad` 取的廣告資訊，會隨機傳送。
 - `/api/content?id={id}` 回傳`content id`的 delta
-- `/api/comment?id={id}` 回傳`comment id`的 delta
+- `/api/ad` 取的廣告資訊，會隨機傳送。(規劃中)
+- `/api/check?username={username}&email={email}` 確認username或email是否存在
+
 
 ### POST
 
-- `/api/upvote` upvote`content id`的 delta，
+- `/api/create-content` 新增文章`content id`的 delta，
     ```json5
     {
-        id: "123",//content id
-        token:""
-    }
-  ```
-
-- `/api/upvote` downvote`content id`的 delta，
-    ```json5
-    {
-        id: "123",//content id
-        token:""
-    }
-  ```
-- `/api/content` 新增文章`content id`的 delta，
-    ```json5
-    {
-        "token": "123",//the token
         "delta": { //delta object
               "ops": [
                       {
@@ -157,37 +145,36 @@
                               "size": "huge"
                           },
                           "insert": "這是一個留言板，使用WYSIWYG(所見及所得)編輯器，使用Github上的開源專案"
-                      },
-                      {
-                          "attributes": {
-                              "color": "#e60000",
-                              "background": "#ffffcc",
-                              "size": "huge",
-                              "link": "https://github.com/quilljs/quill/"
-                          },
-                          "insert": "Quill"
-                      },
-                      {
-                          "attributes": {
-                              "color": "#e60000",
-                              "background": "#ffffcc",
-                              "size": "huge"
-                          },
-                          "insert": " 修改而成。\n\n\n\n"
-                      },
-                      {
-                          "insert": "\n\n"
                       }
               ]
         }
       
   }
   ```
+  回傳
+  ```json5
+  {
+    id: 2 //創完的文章ID
+  }
+
+- `/api/upvote` upvote`content id`的 delta，(規劃中)
+    ```json5
+    {
+        id: "123",//content id
+    }
+  ```
+
+- `/api/upvote` downvote`content id`的 delta，(規劃中)
+    ```json5
+    {
+        id: "123",//content id
+    }
+  ```
+
 - `/api/comment` 新增文章`content id`的留言 delta，
   ```json5
   {
       "id": 12,// the id of content you want to change
-      "token": "123",//the token
       "delta": { //delta object
             "ops": [
                     {
