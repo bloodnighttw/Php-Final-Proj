@@ -69,10 +69,10 @@
 
 ### Content(尚未完成)
 
-|         id         |    title     |   time    | content | upvote | downvote |
-|:------------------:|:------------:|:---------:|:-------:|:------:|:--------:|
-| PRIMARY KEY INT(8) | VARCHAR(128) | TIMESTAMP |  TEXT   | INT(8) |  INT(8)  |
-|       文章的ID        |     文章標題     |    時間     |  文章內容   | upvote | downvote |
+|         id         |    title     |   time    |    delta     | count  |
+|:------------------:|:------------:|:---------:|:------------:|:------:|
+| PRIMARY KEY INT(8) | VARCHAR(128) | TIMESTAMP |     JSON     | INT(8) |
+|       文章的ID        |     文章標題     |    時間     | 文章內容格式，下面有說明 | upvote |
 
 ### Comment(尚未完成)
 

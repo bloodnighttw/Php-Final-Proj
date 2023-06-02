@@ -1,5 +1,9 @@
 ﻿<?php
 session_start();
+if(!isset($_GET['id'])){
+    header("HTTP/1.1 404 Not Found");
+    die();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +20,7 @@ session_start();
 <body class="bg-dark" data-bs-theme="dark">
 
 <?php
-$page_func = "所以這是什麼，可以吃嗎?";
+$page_func = "NEED CHANGE TO DATABASE";
 include('./import/nav.php')
 ?>
 
@@ -24,13 +28,17 @@ include('./import/nav.php')
 
     <div class="container rounded shadow bg-dark content">
 
-        <div>
+        <div id="content" content-id="<?php echo $_GET['id']?>">
             <div class="d-flex align-items-center">
                 <div class=".padding-left0 p-2 me-auto ">
                     <div class="">
-                        <h2 contenteditable="false" id="title">所以這是什麼，可以吃嗎? </h2>
+                        <h2 contenteditable="false" id="title">NEED CHANGE </h2>
                     </div>
                 </div>
+                <div class="p-2 vote">
+                    <div class="btn btn-primary" id="update">更新</div>
+                </div>
+
                 <div class="p-2 vote">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                          class="bi bi-caret-up-fill" viewBox="0 0 16 16">

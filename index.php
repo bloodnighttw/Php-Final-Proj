@@ -1,5 +1,9 @@
 <?php
 session_start();
+require_once './import/database.php';
+$all = $db->prepare("SELECT * FROM content order by content.time DESC limit 25");
+$all->execute();
+$result = $all->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,152 +85,31 @@ include('./import/nav.php')
                 </div>
             </a>
         </div>
+        <?php
+        for ($i = 0; $i < count($result); $i++) {
+            $delta = json_decode($result[$i]['delta'],true);
+            $ops = $delta['ops'];
+
+            $textpreview = "";
+            for ($j = 0; $j < count($ops); $j++) {
+                $textpreview .= isset($ops[$j]['insert']['image']) ? '[img]' : $ops[$j]['insert'];
+            }
+            ?>
+
+            <div class="col-lg-6 col-12">
 
 
-        <div class="col-lg-6 col-12">
+                <a href="./content.php?id=<?php echo $result[$i]['id']?>" class="preview-link">
+                    <div class="container rounded shadow bg-dark  preview-box">
+                        <h3 class="title-preview"><?php echo $result[$i]['title'] ?></h3>
+                        <p class="content-preview">
+                            <?php echo $textpreview ?>
+                        </p>
+                    </div>
+                </a>
+            </div>
+        <?php } ?>
 
-
-            <a href="./content.php" class="preview-link">
-                <div class="container rounded shadow bg-danger  preview-box">
-                    <h3 class="title-preview">置頂討論串</h3>
-                    <p class="content-preview">
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content.
-                    </p>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-lg-6  col-12">
-            <a href="./content.php" class="preview-link ">
-                <div class="container rounded shadow bg-success  preview-box ">
-                    <h3 class="title-preview">會員限定討論串</h3>
-                    <p class="content-preview">
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content.
-                    </p>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-lg-6  col-12">
-            <a href="./content.php" class="preview-link">
-
-                <div class="container rounded shadow preview-box">
-                    <h3 class="title-preview">This is title</h3>
-                    <p class="content-preview">
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content.
-                    </p>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-12 col-lg-6">
-
-
-            <a href="./content.php" class="preview-link">
-                <div class="container rounded shadow preview-box">
-                    <h3 class="title-preview">This is title</h3>
-                    <p class="content-preview">
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content. this is content. this is content. this is content. this is
-                        content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this
-                        is content. this is content. this is content. this is content. this is content. this is
-                        content.
-                        this is content. this is content.
-                    </p>
-                </div>
-            </a>
-        </div>
 
     </div>
 </div>

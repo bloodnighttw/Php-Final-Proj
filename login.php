@@ -1,8 +1,25 @@
 ﻿<?php
 session_start();
 $success = isset($_POST['email']) ;
-if($success){
+if(isset($_SESSION['userid'])){
     header('Location: '.'./index.php');
+    die();
+}
+
+if ($success && isset($_POST['pwd'])) { // if successful
+    echo 'debug';
+    include './import/database.php';
+    $stmt = $db->prepare('SELECT id,username,email,password FROM User where email=? or username = ? and password=?');
+    if(!$stmt->execute([$_POST['email'],$_POST['email'],$_POST['pwd']]))
+        echo '<h1>資料庫連線錯誤</h1>';
+    $result = $stmt->fetch();
+    if(is_array($result)){
+        $_SESSION['userid']=$result['id'];
+        header('Location: '.'./index.php');
+        die();
+    }else if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        echo '<h1>錯誤的email或密碼</h1>';
+    }
 }
 ?>
 
@@ -24,22 +41,6 @@ if($success){
 
         <h1 class="center">登入</h1>
         <hr>
-
-        <?php
-        if ($success && isset($_POST['pwd'])) { // if successful
-            include './import/database.php';
-            $stmt = $db->prepare('SELECT id,username,email,password FROM User where email=? or username = ? and password=?');
-            $stmt->execute([$_POST['email'],$_POST['email'],$_POST['pwd']]);
-            $result = $stmt->fetch();
-            if(is_array($result)){
-                $_SESSION['userid']=$result['id'];
-            }else if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                echo '<h1>錯誤的email或密碼</h1>';
-            }
-
-        }
-
-        ?>
 
         <!--use js to post , not form-->
         <form name="form1" action="./login.php" method="POST">
