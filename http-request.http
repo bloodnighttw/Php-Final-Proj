@@ -49,10 +49,57 @@ Cookie: PHPSESSID=e52dj9tkke4k5rv12ibkho2tlf
 ###
 
 
-GET http://localhost:80/api/content.php?id=30
+GET http://localhost:80/api/content.php?id=50
 Accept: application/json
 Cookie: PHPSESSID=e52dj9tkke4k5rv12ibkho2tlf
 
+###
 
+
+GET http://localhost:80/api/content/upvote.php?id=50
+Accept: application/json
+Cookie: PHPSESSID=e52dj9tkke4k5rv12ibkho2tlf
+
+###
+
+POST http://localhost:80/api/create-comment.php?id=50
+Accept: application/json
+Cookie: PHPSESSID=e52dj9tkke4k5rv12ibkho2tlf
+
+{
+"delta":{"ops":[
+        {
+            "attributes": {
+                "color": "#e60000",
+                "background": "#ffffcc",
+                "size": "huge"
+            },
+            "insert": "這是一個WYSIWYG(所見及所得)編輯器，使用Github上的開源專案"
+        },
+        {
+            "attributes": {
+                "size": "huge",
+                "color": "#e60000",
+                "background": "#ffffcc",
+                "link": "https://github.com/quilljs/quill/"
+            },
+            "insert": "Quill"
+        },
+        {
+            "attributes": {
+                "size": "huge",
+                "color": "#e60000",
+                "background": "#ffffcc"
+            },
+            "insert": " 修改而成，你可以在右上角選單按鈕按一下叫出選單，按下編輯啟用編輯，並反白此段文字，你將會看到編輯器介面，還可以貼上圖片。"
+        }
+    ]}
+}
+
+###
+
+GET http://localhost:80/api/comment.php?id=2
+Accept: application/json
+Cookie: PHPSESSID=e52dj9tkke4k5rv12ibkho2tlf
 
 ###

@@ -71,3 +71,14 @@
     fill: gray
 }
 
+.press svg{
+    fill: salmon;
+}
+
+.press:hover svg{
+    fill: salmon;
+}
+
+[contentEditable=true]:empty:not(:focus):before {
+    content: attr(data-text)
+}

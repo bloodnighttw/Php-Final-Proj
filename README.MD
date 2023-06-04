@@ -60,12 +60,35 @@
 | 使用者的ID  |  商品id  |   數量   |
 
 
-### Content
+### CONTENT
 
-|         id         |    title     |   time    |    delta     |        count         |
-|:------------------:|:------------:|:---------:|:------------:|:--------------------:|
-| PRIMARY KEY INT(8) | VARCHAR(128) | TIMESTAMP |     JSON     |        INT(8)        |
-|       文章的ID        |     文章標題     |    時間     | 文章內容格式，下面有說明 | sub(upvote,downvote) |
+|         id         |    title     |   time    |    delta     |
+|:------------------:|:------------:|:---------:|:------------:|
+| PRIMARY KEY INT(8) | VARCHAR(128) | TIMESTAMP |     JSON     |
+|       文章的ID        |     文章標題     |    時間     | 文章內容格式，下面有說明 |
+
+### CONTENT_VOTE
+
+
+|         id         | userid | contentid |         vote          |
+|:------------------:|:------:|:---------:|:---------------------:|
+| PRIMARY KEY INT(8) | int(8) |  int(8)   |        int(1)         |
+|       文章的ID        | 使用者id  |   文章ID    | 使用者投下的票數，只可能出現 -1 ~ 1 |
+
+### COMMENT
+
+|         id         | contentid |   time    |    delta     |
+|:------------------:|:---------:|:---------:|:------------:|
+| PRIMARY KEY INT(8) |  int(8)   | TIMESTAMP |     JSON     |
+|       文章的ID        |   文章id    |    時間     | 文章內容格式，下面有說明 |
+
+### CONTENT_VOTE
+
+
+|         id         | userid | commentid |         vote          |
+|:------------------:|:------:|:---------:|:---------------------:|
+| PRIMARY KEY INT(8) | int(8) |  int(8)   |        int(1)         |
+|       文章的ID        | 使用者id  |   留言ID    | 使用者投下的票數，只可能出現 -1 ~ 1 |
 
 ---
 
@@ -75,14 +98,6 @@
 | PRIMARY KEY INT(8) |   INT(8)   |
 |       使用者ID        |   使用者名稱    |
 
-
-
-### Comment(尚未完成)
-
-|         id         | contentid |   time    | content | upvote | downvote |
-|:------------------:|:---------:|:---------:|:-------:|:------:|:--------:|
-| PRIMARY KEY INT(8) |  INT(8)   | TIMESTAMP |  TEXT   | INT(8) |  INT(8)  |
-|       留言的ID        |   文章標題    |    時間     |  文章內容   | upvote | downvote |
 
 ### AD(尚未完成)
 
@@ -122,18 +137,23 @@
 
 ## API
 
-- 使用 `axios`呼叫API，並傳送php 的session cookie，作為`TOKEN`。
+- 使用 `axios`呼叫API，並傳送`php` 的session cookie，作為`TOKEN`。
 
 ### GET
 
 - `/api/content?id={id}` 回傳`content id`的 delta
+- `/api/content/upvote?id={content_id}` 會與session cookie一起傳，回傳upvote後的值。
+- `/api/content/downvote?id={content_id}` 會與session cookie一起傳，回傳downvote後的值。
+- `/api/content/reset?id={content_id}` 會與session cookie一起傳，回傳reset後的值。
+- `/api/comment/upvote?id={comment_id}` 會與session cookie一起傳，回傳upvote後的值。
+- `/api/comment/downvote?id={comment_id}` 會與session cookie一起傳，回傳downvote後的值。
+- `/api/comment/reset?id={comment_id}` 會與session cookie一起傳，回傳reset後的值。
 - `/api/ad` 取的廣告資訊，會隨機傳送。(規劃中)
-- `/api/check?username={username}&email={email}` 確認username或email是否存在
-
+- `/api/check?username={username}&email={email}` 確認username或email是否存在(規劃中)
 
 ### POST
 
-- `/api/create-content` 新增文章`content id`的 delta，
+- `/api/create-content.php` 新增文章`content id`的 delta，
     ```json5
     {
         "delta": { //delta object
@@ -157,21 +177,8 @@
     id: 2 //創完的文章ID
   }
 
-- `/api/upvote` upvote`content id`的 delta，(規劃中)
-    ```json5
-    {
-        id: "123",//content id
-    }
-  ```
 
-- `/api/upvote` downvote`content id`的 delta，(規劃中)
-    ```json5
-    {
-        id: "123",//content id
-    }
-  ```
-
-- `/api/comment` 新增文章`content id`的留言 delta，
+- `/api/create-comment.php` 新增文章`content id`的留言 `delta`，
   ```json5
   {
       "id": 12,// the id of content you want to change

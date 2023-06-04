@@ -2,7 +2,7 @@
 header('Content-Type: application/json; charset=utf-8');
 
 require_once '../import/database.php';
-$contentPrepare = $db->prepare('SELECT content.delta FROM content where id=?');
+$contentPrepare = $db->prepare('SELECT delta FROM comment where id=?');
 
 if(!isset($_GET['id'])){
     header("HTTP/1.1 404 Not Found");

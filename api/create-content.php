@@ -1,4 +1,6 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
+
 session_start();
 if (!isset($_SESSION['userid'])) {
     header("HTTP/1.1 401 Unauthorized");

@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $(".sub").on("click", function () {
             let temp = $(this).siblings('input')
-            total -= (temp.val() == "0") ? 0 : Number(temp.attr('price'));
+            total -= (temp.val() === "0") ? 0 : Number(temp.attr('price'));
             temp.val((Number(temp.val()) > 0) ? Number(temp.val()) - 1 : 0);
             $('#price').text("總共" + total + "元");
 

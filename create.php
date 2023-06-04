@@ -1,7 +1,10 @@
 ﻿<?php
 session_start();
 
-
+if($_SESSION['id'] === null){
+    header("HTTP/1.1 401 Unauthorized");
+    die();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
